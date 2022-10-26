@@ -1,0 +1,19 @@
+buildscript {
+    ext {
+        compose_version = '1.3.0'
+        material_version = '1.1.0-alpha01'
+        junit_version = '4.13.2'
+        test_junit_version = '1.1.3'
+        espresso_core_version = '3.4.0'
+        compose_activity_version = '1.6.1'
+        ktx_version = '1.9.0'
+        ktx_lifecycler_version = '2.5.1'
+        hilt_version = '2.44'
+    }
+}// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '7.3.1' apply false
+    id 'com.android.library' version '7.3.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+    id 'com.google.dagger.hilt.android' version '2.44' apply false
+}
