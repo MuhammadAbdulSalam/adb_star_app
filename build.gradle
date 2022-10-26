@@ -9,11 +9,21 @@ buildscript {
         ktx_version = '1.9.0'
         ktx_lifecycler_version = '2.5.1'
         hilt_version = '2.44'
+        nav_version = "2.5.3"
+        hilt_navigation_version = '1.0.0'
+    }
+
+    repositories {
+        google()
+    }
+    dependencies {
+        def nav_version = "2.5.3"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id 'com.android.application' version '7.3.1' apply false
     id 'com.android.library' version '7.3.1' apply false
-    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+    id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
     id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
