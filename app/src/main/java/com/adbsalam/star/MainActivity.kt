@@ -12,10 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.adbsalam.star.navigation.mainactivitynavigation.MainActivityNavigationRoutes.LOGIN_CHECKER
-import com.adbsalam.star.navigation.mainactivitynavigation.MainActivityNavigationRoutes.LOGIN_SCREEN
+import com.adbsalam.star.navigation.mainactivitynavigation.MainActivityNavigationRoutes
+import com.adbsalam.star.navigation.mainactivitynavigation.MainActivityNavigationRoutes.*
 import com.adbsalam.star.ui.screens.logincheckerscreen.LoginCheckerCompose
 import com.adbsalam.star.ui.screens.loginscreen.LoginScreenCompose
+import com.adbsalam.star.ui.screens.registrationscreen.RegistrationScreen
 import com.adbsalam.star.ui.theme.Adb_salam_starTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,6 +45,7 @@ fun StartingPointCompose() {
     NavHost(navController = navController, startDestination = LOGIN_CHECKER.name) {
         composable(LOGIN_CHECKER.name) { LoginCheckerCompose(navController) }
         composable(LOGIN_SCREEN.name) { LoginScreenCompose(navController) }
+        composable(REGISTRATION_SCREEN.name) { RegistrationScreen(navController) }
     }
 }
 

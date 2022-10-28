@@ -1,6 +1,9 @@
 package com.adbsalam.star.ui.uiutil
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.*
@@ -8,41 +11,59 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.red
+import com.adbsalam.star.ui.theme.Purple40
+import com.adbsalam.star.ui.uiutil.uidatamodels.ButtonModel
+import com.adbsalam.star.ui.uiutil.uidatamodels.ImageModel
 import com.adbsalam.star.ui.uiutil.uidatamodels.TextViewModel
 
+
+
 @Composable
-fun FullScreenLoadingView() {
+fun AppClickableText(buttonModel: ButtonModel){
+    ClickableText(
+        modifier = Modifier.padding(vertical = 10.dp),
+        text = AnnotatedString(buttonModel.buttonText),
+        onClick = { buttonModel.onClickListener() },
+        style = TextStyle(color = Purple40 )
+    )
+}
+
+@Composable
+fun AppButton(buttonModel: ButtonModel){
     Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxWidth()
     ) {
-        CircularProgressIndicator()
+        Button(
+            modifier = Modifier.align(Alignment.End).padding(vertical = 5.dp),
+            onClick = {buttonModel.onClickListener()}
+        ) {
+            Text(text = buttonModel.buttonText)
+        }
     }
 }
 
-
 @Composable
-fun FullScreenColumn(composable: @Composable() () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        composable()
-    }
+fun AppImageView(imageModel: ImageModel){
+    val image: Painter = painterResource(id = imageModel.resource)
+    Image(
+        painter = image,
+        contentDescription = "",
+        modifier = Modifier.height(imageModel.height).width(imageModel.width)
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextViewWithEndIconComposable(textViewDataModel: TextViewModel) {
-    Column(modifier = Modifier.fillMaxWidth().padding(all = 10.dp)) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         var textState = textViewDataModel.stateText
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -52,6 +73,8 @@ fun TextViewWithEndIconComposable(textViewDataModel: TextViewModel) {
                 textState.value = it
                 textViewDataModel.textInitiated = true
             },
+            keyboardOptions = textViewDataModel.showKeyboardType(),
+            visualTransformation = textViewDataModel.getVisualTransformation(),
             isError = textViewDataModel.textInitiated && textViewDataModel.isErrorText(),
             trailingIcon = {
                 IconButton(onClick = {
@@ -80,4 +103,6 @@ fun TextViewWithEndIconComposable(textViewDataModel: TextViewModel) {
             }
         }
     }
+
+
 }
