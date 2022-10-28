@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -18,6 +19,7 @@ import com.adbsalam.star.ui.screens.logincheckerscreen.LoginCheckerCompose
 import com.adbsalam.star.ui.screens.loginscreen.LoginScreenCompose
 import com.adbsalam.star.ui.screens.registrationscreen.RegistrationScreen
 import com.adbsalam.star.ui.theme.Adb_salam_starTheme
+import com.adbsalam.star.ui.theme.Adb_salam_starTheme_fullscreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,8 +27,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent{
-            Adb_salam_starTheme {
+            Adb_salam_starTheme_fullscreen {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -52,7 +55,7 @@ fun StartingPointCompose() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    Adb_salam_starTheme {
+    Adb_salam_starTheme_fullscreen() {
         StartingPointCompose()
     }
 }

@@ -6,21 +6,21 @@ import androidx.compose.ui.text.input.*
 
 data class TextViewModel (
     var initialValue: String = "",
-    var stateText: MutableState<TextFieldValue>,
+    var stateText: MutableState<TextFieldValue>? =  null,
     var textInitiated:Boolean = false,
     var textFormat: TextFormat = TextFormat.TEXT
     ){
     fun isErrorText(): Boolean {
        return when{
-            stateText.value.text.isBlank() || stateText.value.text.isEmpty()  -> true
+            stateText?.value?.text?.isBlank() == true || stateText?.value?.text?.isEmpty() == true -> true
             else -> false
         }
     }
 
     fun getErrorMessage(): String{
         return when{
-            stateText.value.text.isBlank() -> "cannot be left blank"
-            stateText.value.text.isEmpty() -> "please enter text"
+            stateText?.value?.text?.isBlank() == true -> "cannot be left blank"
+            stateText?.value?.text?.isEmpty() == true-> "please enter text"
             else -> ""
         }
     }

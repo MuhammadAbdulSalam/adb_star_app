@@ -26,7 +26,7 @@ fun FullScreenLoadingView() {
 @Composable
 fun FullScreenColumn(composable: @Composable() () -> Unit, verticalArrangement: Arrangement.Vertical, horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(all = 10.dp),
+        modifier = Modifier.fillMaxSize().padding(all = 20.dp),
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment,
     ) {
