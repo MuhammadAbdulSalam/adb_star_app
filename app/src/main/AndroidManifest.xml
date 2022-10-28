@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Adb_salam_star"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.screens.logincheckerscreen.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Adb_salam_star">

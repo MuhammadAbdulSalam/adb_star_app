@@ -20,7 +20,7 @@ import com.adbsalam.star.ui.uiutil.uidatamodels.ImageModel
 import com.adbsalam.star.ui.uiutil.uidatamodels.TextViewModel
 
 
-private val userNameState = TextViewModel("username" )
+private var userNameState = TextViewModel("username" )
 private val passwordState = TextViewModel("password", textFormat = TextViewModel.TextFormat.PASSWORD)
 private val btnLoginModel = ButtonModel("Login")
 private val btnNewAccountModel = ButtonModel("Create New Account", isTextButton = true)
@@ -35,12 +35,11 @@ fun LoginScreenCompose(navController: NavController? = null) {
     btnNewAccountModel.onClickListener = { navController?.navigate(MainActivityNavigationRoutes.REGISTRATION_SCREEN.name) }
     btnLoginModel.onClickListener = { context.startActivity(Intent(context, MainHomeScreenActivity::class.java)) }
 
-    FullScreenColumn(verticalArrangement = Arrangement.SpaceEvenly, composable = {
+    FullScreenColumn(verticalArrangement = Arrangement.SpaceEvenly) {
             AppImageView(imageModel = imageModel)
             LinearLayoutCompose(modelView = listOf(userNameState, passwordState, btnLoginModel))
             LinearLayoutCompose(modelView = listOf(btnNewAccountModel, btnForgotPasswordModel))
         }
-    )
 }
 
 @Preview(showBackground = true)

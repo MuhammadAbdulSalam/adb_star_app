@@ -90,9 +90,14 @@ fun Adb_salam_starTheme_fullscreen(
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            systemUiController.setSystemBarsColor(
-                color = Color.Transparent
-            )
+            if(darkTheme){
+                systemUiController.setSystemBarsColor(
+                    color = Color.Transparent
+                )
+            }else{
+                systemUiController.setNavigationBarColor(color = Transparent)
+                systemUiController.setStatusBarColor(color = lightColorScheme().surface)
+            }
         }
     }
 

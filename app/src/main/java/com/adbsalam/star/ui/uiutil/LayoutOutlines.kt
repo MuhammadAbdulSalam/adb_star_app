@@ -24,9 +24,20 @@ fun FullScreenLoadingView() {
 }
 
 @Composable
-fun FullScreenColumn(composable: @Composable() () -> Unit, verticalArrangement: Arrangement.Vertical, horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally) {
+fun FullScreenColumn(verticalArrangement: Arrangement.Vertical, horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally, composable: @Composable() () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(all = 20.dp),
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment,
+    ) {
+        composable()
+    }
+}
+
+@Composable
+fun NavigationFragmentColumn( verticalArrangement: Arrangement.Vertical, horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally, composable: @Composable() () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(start = 20.dp, top = 30.dp, end = 20.dp, bottom = 20.dp ),
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment,
     ) {
