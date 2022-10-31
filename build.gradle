@@ -11,6 +11,9 @@ buildscript {
         hilt_version = '2.44'
         nav_version = "2.5.3"
         hilt_navigation_version = '1.0.0'
+        retrofitVersion = '2.9.0'
+        okhttpLoggingVersion = '4.9.1'
+        gsonVersion = '2.9.0'
     }
 
     repositories {

@@ -29,6 +29,11 @@ private val imageModel = ImageModel(R.drawable.mainlogo, "")
 
 
 @Composable
+fun LoginScreenComposableGenerator(composeable: @Composable (() -> Unit) -> Unit, manipulator: () -> Unit){
+    composeable(){ viewManipulator() }
+}
+
+@Composable
 fun LoginScreenCompose(navController: NavController? = null) {
     val context = LocalContext.current
 
@@ -42,10 +47,7 @@ fun LoginScreenCompose(navController: NavController? = null) {
         }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Adb_salam_starTheme_fullscreen() {
-        LoginScreenCompose()
-    }
+fun viewManipulator(){
+//setup observers
+
 }

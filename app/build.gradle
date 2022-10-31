@@ -25,6 +25,9 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField('String', 'API_URL', '"https://api.themoviedb.org/3/"')
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -72,12 +75,19 @@ dependencies {
     //system ui
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
 
+    //pager
     implementation "com.google.accompanist:accompanist-pager:0.13.0"
     implementation "com.google.accompanist:accompanist-pager-indicators:0.13.0"
 
     //hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    //retrofit
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
 
     //test
     testImplementation "junit:junit:$junit_version"

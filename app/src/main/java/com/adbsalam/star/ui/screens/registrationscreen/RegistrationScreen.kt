@@ -2,13 +2,8 @@ package com.adbsalam.star.ui.screens.registrationscreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import com.adbsalam.star.ui.screens.loginscreen.userNameState
-import com.adbsalam.star.ui.theme.Adb_salam_starTheme
 import com.adbsalam.star.ui.theme.Adb_salam_starTheme_fullscreen
 import com.adbsalam.star.ui.uiutil.FullScreenColumn
 import com.adbsalam.star.ui.uiutil.LinearLayoutCompose
