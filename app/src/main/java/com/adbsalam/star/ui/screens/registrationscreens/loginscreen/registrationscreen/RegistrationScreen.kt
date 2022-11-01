@@ -1,4 +1,4 @@
-package com.adbsalam.star.ui.screens.registrationscreen
+package com.adbsalam.star.ui.screens.registrationscreens.loginscreen.registrationscreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable

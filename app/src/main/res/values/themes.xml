@@ -2,4 +2,8 @@
 <resources>
 
     <style name="Theme.Adb_salam_star" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="SplashScreenTheme" parent="Theme.Adb_salam_star">
+        <item name="android:windowBackground">@drawable/mainlogo</item>
+    </style>
 </resources>

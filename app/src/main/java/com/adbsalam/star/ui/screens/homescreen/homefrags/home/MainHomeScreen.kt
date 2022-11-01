@@ -19,30 +19,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainHomeScreen(viewModel: HomeScreenViewModel = hiltViewModel()) {
 
-    val nameState = TextViewModel("full name")
-    val emailState = TextViewModel("email")
-    val addressLine1State = TextViewModel("address line 1")
-    val postcodeState = TextViewModel("postcode")
-    val cityState = TextViewModel("city")
-    val phoneNumberState = TextViewModel("phone number", textFormat = TextViewModel.TextFormat.NUMBERS_ONLY)
-    val buttonSubmitModel = ButtonModel("Submit")
-
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    NavigationFragmentColumn(verticalArrangement = Arrangement.Top ){
-        LinearLayoutCompose(modelView = listOf(nameState, emailState, addressLine1State, postcodeState, cityState, phoneNumberState, buttonSubmitModel))
-    }
-
-
-    lifecycleOwner.lifecycleScope.launchWhenCreated {
-        viewModel.popularMovies.collect{
-            if(it.isSuccess){
-
-
-                Log.d("============", "--------------------------------------" + lifecycleOwner.lifecycle.currentState.name)
-            }
-        }
-    }
 
 }
 

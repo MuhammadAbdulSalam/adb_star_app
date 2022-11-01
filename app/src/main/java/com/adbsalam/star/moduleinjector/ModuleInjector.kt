@@ -1,6 +1,9 @@
 package com.adbsalam.star.moduleinjector
 
 import com.adbsalam.star.api.RetrofitBuilder
+import com.adbsalam.star.application.AppInitializer
+import com.adbsalam.star.application.MainApplication
+import com.adbsalam.star.core.application.AppInitializerImpl
 import com.adbsalam.star.utility.CoroutineDispatcherProvider
 import dagger.Module
 import dagger.Provides
@@ -31,7 +34,17 @@ class ModuleInjector {
     }
 
 
+    @Provides
+    @Singleton
+    fun provideApplication(): MainApplication {
+        return MainApplication()
+    }
 
-
+    @Provides
+    @Singleton
+    fun provideAppInitializer(
+    ): AppInitializer {
+        return AppInitializerImpl()
+    }
 
 }
