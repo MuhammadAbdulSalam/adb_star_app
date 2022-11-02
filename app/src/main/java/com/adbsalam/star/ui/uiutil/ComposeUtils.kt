@@ -1,11 +1,13 @@
 package com.adbsalam.star.ui.uiutil
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.lightColors
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -19,14 +21,14 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adbsalam.star.ui.screens.registrationscreens.onboardingscreen.OnBoardingPage
 import com.adbsalam.star.ui.theme.Purple40
-import com.adbsalam.star.ui.uiutil.uidatamodels.ButtonModel
-import com.adbsalam.star.ui.uiutil.uidatamodels.ImageModel
-import com.adbsalam.star.ui.uiutil.uidatamodels.TextViewModel
-
+import com.adbsalam.star.ui.uiutil.uidatamodels.*
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
 
 
 @Composable
@@ -61,6 +63,30 @@ fun AppImageView(imageModel: ImageModel){
         contentDescription = "",
         modifier = Modifier.height(imageModel.height).width(imageModel.width)
     )
+}
+
+@Composable
+fun AppText(appTextModel: TextModel){
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 40.dp)
+            .padding(top = 20.dp),
+        text = appTextModel.text,
+        fontWeight = appTextModel.textType.fontWeight,
+        fontSize = appTextModel.textType.fontSize,
+        textAlign = TextAlign.Center
+    )
+}
+
+@Composable
+fun AppAnimatedButton(buttonModel: ButtonModel, animatedVisibility: Boolean){
+    AnimatedVisibility(
+        modifier = Modifier.fillMaxWidth(),
+        visible = animatedVisibility
+    ) {
+        AppButton(buttonModel)
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

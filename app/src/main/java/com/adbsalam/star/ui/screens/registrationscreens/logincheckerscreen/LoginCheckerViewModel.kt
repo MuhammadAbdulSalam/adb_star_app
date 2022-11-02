@@ -19,7 +19,9 @@ class LoginCheckerViewModel @Inject constructor(private val onRegistration: OnBo
 
     private fun readRegistrationState() = safeLaunch {
         call(onRegistration(Unit)) { completed ->
-            _onBoardingState.value = !completed
+          //  _onBoardingState.value = !completed TODO uncomment after onboarding testing complete, this is to go to onboarding always
+            _onBoardingState.value = true
+
         }
     }
 }

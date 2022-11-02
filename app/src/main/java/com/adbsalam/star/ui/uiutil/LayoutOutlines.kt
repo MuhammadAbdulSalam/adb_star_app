@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adbsalam.star.ui.uiutil.uidatamodels.ButtonModel
+import com.adbsalam.star.ui.uiutil.uidatamodels.TextModel
 import com.adbsalam.star.ui.uiutil.uidatamodels.TextViewModel
 
 @Composable
@@ -26,7 +27,9 @@ fun FullScreenLoadingView() {
 @Composable
 fun FullScreenColumn(verticalArrangement: Arrangement.Vertical, horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally, composable: @Composable() () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(all = 20.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(all = 20.dp),
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment,
     ) {
@@ -37,7 +40,9 @@ fun FullScreenColumn(verticalArrangement: Arrangement.Vertical, horizontalAlignm
 @Composable
 fun NavigationFragmentColumn( verticalArrangement: Arrangement.Vertical, horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally, composable: @Composable() () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(start = 20.dp, top = 30.dp, end = 20.dp, bottom = 20.dp ),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(start = 20.dp, top = 30.dp, end = 20.dp, bottom = 20.dp),
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment,
     ) {
@@ -51,6 +56,7 @@ fun LinearLayoutCompose(modelView: List<Any>) {
         modelView.forEach { model ->
             when(model){
                 is TextViewModel -> TextViewWithEndIconComposable(model)
+                is TextModel -> AppText(appTextModel = model)
                 is ButtonModel -> if (model.isTextButton) AppClickableText( model) else AppButton(model)
             }
         }
