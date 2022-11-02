@@ -95,7 +95,7 @@ fun Adb_salam_starTheme_fullscreen(
                     color = Color.Transparent
                 )
             }else{
-                systemUiController.setNavigationBarColor(color = Transparent)
+                systemUiController.setNavigationBarColor(color = lightColorScheme().surface)
                 systemUiController.setStatusBarColor(color = lightColorScheme().surface)
             }
         }

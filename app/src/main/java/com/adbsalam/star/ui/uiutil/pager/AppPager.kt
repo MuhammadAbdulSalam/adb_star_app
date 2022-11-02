@@ -25,7 +25,7 @@ fun AppPager(pagerModel: PagerModel){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(lightColors().onPrimary)
+            .background(lightColorScheme().surface)
     ) {
         HorizontalPager(
             modifier = Modifier.weight(10f),

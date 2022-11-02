@@ -1,18 +1,14 @@
 package com.adbsalam.star.ui.screens.registrationscreens.onboardingscreen
 
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -47,7 +43,10 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel = hiltViewModel()) {
         tailingComposable = { modifier ->
             FinishButton(modifier = modifier, pagerState = pagerState) {
                 viewModel.saveOnBoardingState(completed = true)
-                context.launchActivity<LoginActivity> {}
+                context.launchActivity<LoginActivity> {
+                    val activity = context as OnBoardingActivity
+                    activity.finish()
+                }
             }
         }
     )

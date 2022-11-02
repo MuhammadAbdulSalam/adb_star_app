@@ -7,6 +7,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -26,7 +27,12 @@ class OnBoardingActivity: FragmentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             Adb_salam_starTheme_fullscreen {
-                OnBoardingStart()
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color =lightColorScheme().surface
+                ){
+                    OnBoardingStart()
+                }
             }
         }
     }
