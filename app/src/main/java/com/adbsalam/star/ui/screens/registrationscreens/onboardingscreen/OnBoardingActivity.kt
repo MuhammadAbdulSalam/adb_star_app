@@ -24,7 +24,6 @@ class OnBoardingActivity: FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             Adb_salam_starTheme_fullscreen {
                 Surface(

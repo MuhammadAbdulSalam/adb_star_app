@@ -1,9 +1,7 @@
 package com.adbsalam.star.ui.uiutil
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -64,8 +62,9 @@ fun LinearLayoutCompose(modelView: List<Any>) {
 }
 
 @Composable
-fun CompactColumn(composable: @Composable() () -> Unit) {
+fun CompactColumn(modifier: Modifier = Modifier.fillMaxWidth(), composable: @Composable() () -> Unit) {
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

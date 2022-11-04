@@ -1,6 +1,6 @@
 package com.adbsalam.star.ui.uiutil
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -80,12 +80,16 @@ fun AppText(appTextModel: TextModel){
 }
 
 @Composable
-fun AppAnimatedButton(buttonModel: ButtonModel, animatedVisibility: Boolean){
-    AnimatedVisibility(
-        modifier = Modifier.fillMaxWidth(),
-        visible = animatedVisibility
-    ) {
-        AppButton(buttonModel)
+fun AppAnimatedButton(modifier: Modifier, buttonModel: ButtonModel, visibility: Boolean){
+    CompactColumn(modifier.padding(horizontal = 40.dp)) {
+        AnimatedVisibility(
+            modifier = Modifier.fillMaxWidth(),
+            visible = visibility,
+            enter = slideInHorizontally() + fadeIn(),
+            exit = slideOutHorizontally() + fadeOut()
+        ) {
+            AppButton(buttonModel)
+        }
     }
 }
 
@@ -135,6 +139,5 @@ fun TextViewWithEndIconComposable(textViewDataModel: TextViewModel) {
             }
         }
     }
-
 
 }
