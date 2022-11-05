@@ -10,5 +10,6 @@ import com.google.accompanist.pager.PagerState
 data class PagerModel(
     val pagerList: List<OnBoardingPage>,
     val pagerState: PagerState,
+    val requireIndicator: Boolean = true,
     val tailingComposable: @Composable (modifier: Modifier) -> Unit = {}
 )

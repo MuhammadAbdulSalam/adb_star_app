@@ -75,7 +75,8 @@ fun Adb_salam_starTheme_fullscreen(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    isBottomBarTheme: Boolean = false,
+    content: @Composable () -> Unit,
 ) {
     val systemUiController = rememberSystemUiController()
 
@@ -95,7 +96,7 @@ fun Adb_salam_starTheme_fullscreen(
                     color = Color.Transparent
                 )
             }else{
-                systemUiController.setNavigationBarColor(color = lightColorScheme().surface)
+                systemUiController.setNavigationBarColor(color = if(isBottomBarTheme) Color.Transparent else lightColorScheme().surface)
                 systemUiController.setStatusBarColor(color = lightColorScheme().surface)
             }
         }

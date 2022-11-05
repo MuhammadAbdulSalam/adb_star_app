@@ -30,17 +30,19 @@ fun AppPager(pagerModel: PagerModel){
         HorizontalPager(
             modifier = Modifier.weight(10f),
             state = pagerModel.pagerState,
-            verticalAlignment = Alignment.Top
-        ) { position ->
+            verticalAlignment = Alignment.Top,
+            ) { position ->
             PagerScreen(onBoardingPage = pagerModel.pagerList[position])
         }
-        HorizontalPagerIndicator(
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .weight(1f),
-            pagerState = pagerModel.pagerState,
-            activeColor = lightColorScheme().primary
-        )
+        if(pagerModel.requireIndicator){
+            HorizontalPagerIndicator(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .weight(1f),
+                pagerState = pagerModel.pagerState,
+                activeColor = lightColorScheme().primary
+            )
+        }
         if(pagerModel.tailingComposable != {}){
             pagerModel.tailingComposable(Modifier.weight(1f))
         }

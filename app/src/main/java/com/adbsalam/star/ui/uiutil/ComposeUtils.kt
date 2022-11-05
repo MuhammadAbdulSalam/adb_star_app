@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,12 +24,15 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adbsalam.star.R
 import com.adbsalam.star.ui.screens.registrationscreens.onboardingscreen.OnBoardingPage
 import com.adbsalam.star.ui.theme.Purple40
 import com.adbsalam.star.ui.uiutil.uidatamodels.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.PagerState
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -89,6 +93,41 @@ fun AppAnimatedButton(modifier: Modifier, buttonModel: ButtonModel, visibility: 
             exit = slideOutHorizontally() + fadeOut()
         ) {
             AppButton(buttonModel)
+        }
+    }
+}
+
+@Composable
+fun GetAppBarLogoImage(){
+    Image(
+        modifier = Modifier.padding(horizontal = 20.dp),
+        painter = painterResource(R.drawable.mainlogo),
+        contentDescription = "Contact profile picture",
+    )
+}
+
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun TabLayout(pagerState: PagerState, pagesList: List<String>){
+    val scope = rememberCoroutineScope()
+
+    TabRow(selectedTabIndex = pagerState.currentPage) {
+        pagesList.forEachIndexed{ index, text ->
+            Tab(selected = pagerState.currentPage == index, onClick = {
+                if(pagerState.currentPage != index){
+                    scope.launch {
+                        pagerState.scrollToPage(index)
+                    }
+                }
+            }
+            ) {
+                Text(
+                    modifier = Modifier.padding(all = 10.dp),
+                    text = text
+                )
+            }
+
         }
     }
 }
