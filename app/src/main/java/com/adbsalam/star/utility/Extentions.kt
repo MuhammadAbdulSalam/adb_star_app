@@ -37,3 +37,7 @@ fun Activity.launchActivity(
 fun CreateComposeList(list: List<@Composable()() -> Unit>): List<@Composable()() -> Unit> {
     return list
 }
+
+inline fun <reified T : Any> Any.cast(): T {
+    return this as T
+}
