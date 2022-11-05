@@ -27,6 +27,7 @@ android {
     buildTypes {
         debug{
             buildConfigField('String', 'API_URL', '"https://api.themoviedb.org/3/"')
+            buildConfigField('String', 'API_IMAGE_BASE_URL', '"https://image.tmdb.org/t/p/w500/"')
         }
         release {
             minifyEnabled false
@@ -94,6 +95,9 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+
+    //coil images https
+    implementation "io.coil-kt:coil-compose:2.0.0-rc02"
 
     //test
     testImplementation "junit:junit:$junit_version"

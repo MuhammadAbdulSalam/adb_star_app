@@ -20,16 +20,15 @@ import com.google.accompanist.pager.rememberPagerState
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun MainHomeScreen(viewModel: LatestMoviesViewModel = hiltViewModel()) {
+fun MainHomeScreen() {
     val pagerState = rememberPagerState(2)
-    val uiState by viewModel.uiState.collectAsState()
 
     val pagesList = listOf(
-        PagerModel.PageModel("Latest") { LatestScreenUiManipulator(uiState = uiState) } ,
-        PagerModel.PageModel("Popular") { PopularScreenUiManipulator(uiState = uiState) }
+        PagerModel.PageModel("Latest") { LatestScreenUiManipulator() } ,
+        PagerModel.PageModel("Popular") { PopularScreenUiManipulator( pagerState = pagerState) }
     )
 
-    val pagerModel = PagerModel(pagerList = pagesList, pagerState = pagerState, requireIndicator = false)
+    val pagerModel = PagerModel(pagerList = pagesList, pagerState = pagerState, requireIndicator = false, dragEnabled = false)
 
     Column() {
         TopAppBar(backgroundColor = lightColorScheme().surface) { GetAppBarLogoImage() }

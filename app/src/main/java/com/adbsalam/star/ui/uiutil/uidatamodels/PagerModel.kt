@@ -11,6 +11,7 @@ data class PagerModel(
     val pagerList: List<PageModel>,
     val pagerState: PagerState,
     val requireIndicator: Boolean = true,
+    val dragEnabled: Boolean = true,
     val tailingComposable: @Composable (modifier: Modifier) -> Unit = {}
 ){
     data class PageModel(

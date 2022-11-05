@@ -11,3 +11,4 @@ class CoroutineDispatcherProvider {
     val ui: CoroutineDispatcher
         get() = Dispatchers.Main
 }
+

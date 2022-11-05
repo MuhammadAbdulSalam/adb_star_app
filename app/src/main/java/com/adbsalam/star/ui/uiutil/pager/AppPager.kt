@@ -24,6 +24,7 @@ fun AppPager(pagerModel: PagerModel){
             modifier = Modifier.weight(10f),
             state = pagerModel.pagerState,
             verticalAlignment = Alignment.Top,
+            dragEnabled = pagerModel.dragEnabled
             ) { position ->
            pagerModel.pagerList[position].composableScreen()
         }
@@ -39,6 +40,6 @@ fun AppPager(pagerModel: PagerModel){
         if(pagerModel.tailingComposable != {}){
             pagerModel.tailingComposable(Modifier.weight(1f))
         }
-
     }
 }
+

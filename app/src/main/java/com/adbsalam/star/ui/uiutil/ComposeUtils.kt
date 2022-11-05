@@ -3,6 +3,8 @@ package com.adbsalam.star.ui.uiutil
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
@@ -18,15 +20,22 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adbsalam.star.R
+import com.adbsalam.star.api.data.popular.MovieByGenre
+import com.adbsalam.star.api.data.popular.MovieGenres
+import com.adbsalam.star.api.data.popular.PopularMoviesResponse
 import com.adbsalam.star.ui.theme.Purple40
+import com.adbsalam.star.ui.uiutil.recycleritems.AppCompactPager
+import com.adbsalam.star.ui.uiutil.recycleritems.MovieItem
 import com.adbsalam.star.ui.uiutil.uidatamodels.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
 
@@ -126,6 +135,64 @@ fun TabLayout(pagerModel: PagerModel){
         }
     }
 }
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun LoadMoviesListView(moviesList: List<PopularMoviesResponse.PopularMoviesList>){
+    var pagerImages = listOf<PopularMoviesResponse.PopularMoviesList>()
+
+    if(moviesList.size > 5){
+        pagerImages = listOf(moviesList[0], moviesList[1], moviesList[2])
+    }
+
+    val listByGenre = ArrayList<MovieByGenre>()
+
+    MovieGenres.values().forEach { genre ->
+        val currentGenre = MovieByGenre()
+        currentGenre.genreTitle = genre.name
+        moviesList.forEach { movie ->
+            if(movie.genre_ids[0] == genre.id){
+                currentGenre.movieList.add(movie)
+            }
+        }
+        listByGenre.add(currentGenre)
+    }
+
+    val pagerState = rememberPagerState(pageCount = 3)
+
+    Column(Modifier.fillMaxSize()) {
+        LazyColumn(modifier = Modifier.fillMaxWidth()){
+            item {
+                if(pagerImages.isNotEmpty()){
+                    AppCompactPager(pagerState, pagerImages)
+                }
+
+                for (movieByGenre in listByGenre) {
+                    if(movieByGenre.movieList.isNotEmpty()){
+                        Text(
+                            modifier = Modifier
+                                .padding(all = 10.dp),
+                            text = movieByGenre.genreTitle,
+                            style = TextStyle(
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.W500
+                            )
+                        )
+
+                        LazyRow{
+                            item {
+                                movieByGenre.movieList.forEach{ movie ->
+                                    MovieItem(movie = movie)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
