@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.compose.runtime.Composable
 
 inline fun <reified T : Any> Context.launchActivity(
     options: Bundle? = null,
@@ -31,4 +32,8 @@ fun Activity.launchActivity(
         intent.putExtras(bundle)
     }
     startActivity(intent)
+}
+
+fun CreateComposeList(list: List<@Composable()() -> Unit>): List<@Composable()() -> Unit> {
+    return list
 }

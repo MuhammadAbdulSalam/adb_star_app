@@ -9,6 +9,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.adbsalam.star.R
 import com.adbsalam.star.ui.screens.registrationscreens.loginscreen.LoginActivity
 import com.adbsalam.star.ui.theme.Adb_salam_starTheme_fullscreen
 import com.adbsalam.star.ui.uiutil.AppAnimatedButton
@@ -25,12 +26,11 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(3)
-    val pages = listOf(OnBoardingPage.First, OnBoardingPage.Second, OnBoardingPage.Third)
     val enable = pagerState.currentPage != 0
 
     BackHandler(enabled = enable) {
         scope.launch {
-            pagerState.scrollToPage(pagerState.currentPage - 1)
+            pagerState.animateScrollToPage(pagerState.currentPage - 1)
         }
     }
 
@@ -43,8 +43,14 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel = hiltViewModel()) {
         }
     )
 
+    val pagesList = listOf(
+        PagerModel.PageModel(composableScreen = {OnBoardingPageScreen(R.drawable.ic_outline_home_24, "Home", "See list of popular, latest and upcoming movies")}),
+        PagerModel.PageModel(composableScreen = {OnBoardingPageScreen(R.drawable.ic_outline_manage_search_24, "Search","Search for your favourite movies and TV Series on demand") }),
+        PagerModel.PageModel(composableScreen = {OnBoardingPageScreen(R.drawable.ic_baseline_data_saver_on_24,"Store", "Store your collection of movies and TV Series in one place.")})
+    )
+
     val pagerModel = PagerModel(
-        pagerList = pages,
+        pagerList = pagesList,
         pagerState = pagerState,
         tailingComposable = { modifier -> AppAnimatedButton(modifier, buttonModel = btnFinish, visibility = pagerState.currentPage == 2) }
     )
@@ -60,4 +66,8 @@ fun OnBoardingScreenPreview() {
         OnBoardingScreen()
     }
 }
+
+
+
+
 

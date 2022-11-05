@@ -2,12 +2,10 @@ package com.adbsalam.star.ui.uiutil
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.lightColors
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -25,12 +23,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adbsalam.star.R
-import com.adbsalam.star.ui.screens.registrationscreens.onboardingscreen.OnBoardingPage
 import com.adbsalam.star.ui.theme.Purple40
 import com.adbsalam.star.ui.uiutil.uidatamodels.*
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.PagerState
 import kotlinx.coroutines.launch
 
@@ -109,22 +104,22 @@ fun GetAppBarLogoImage(){
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun TabLayout(pagerState: PagerState, pagesList: List<String>){
+fun TabLayout(pagerModel: PagerModel){
     val scope = rememberCoroutineScope()
 
-    TabRow(selectedTabIndex = pagerState.currentPage) {
-        pagesList.forEachIndexed{ index, text ->
-            Tab(selected = pagerState.currentPage == index, onClick = {
-                if(pagerState.currentPage != index){
+    TabRow(selectedTabIndex = pagerModel.pagerState.currentPage) {
+        pagerModel.pagerList.forEachIndexed{ index, model ->
+
+            Tab(selected = pagerModel.pagerState.currentPage == index, onClick = {
+                if(pagerModel.pagerState.currentPage != index){
                     scope.launch {
-                        pagerState.scrollToPage(index)
+                        pagerModel.pagerState.animateScrollToPage(index)
                     }
                 }
-            }
-            ) {
+            }) {
                 Text(
                     modifier = Modifier.padding(all = 10.dp),
-                    text = text
+                    text = model.title
                 )
             }
 
