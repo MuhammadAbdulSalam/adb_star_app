@@ -136,7 +136,7 @@ fun Adb_Salam_StarTheme_Fullscreen_Dark(
                 )
             }else{
                 systemUiController.setNavigationBarColor(color = if(isBottomBarTheme) Color.Transparent else darkColorScheme().surface)
-                systemUiController.setStatusBarColor(color = darkColorScheme().surface)
+                systemUiController.setStatusBarColor(color = if(isBottomBarTheme) Color.Transparent else darkColorScheme().surface)
             }
         }
     }

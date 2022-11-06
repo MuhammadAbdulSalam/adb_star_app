@@ -37,7 +37,7 @@ fun MainHomeScreen() {
     val pagerModel = PagerModel(pagerList = pagesList, pagerState = pagerState, requireIndicator = false, dragEnabled = false)
 
     Box() {
-        AppPager(pagerModel = pagerModel)
+        AppPager(pagerModel = pagerModel, isDark = true)
 
         Column(modifier = Modifier.fillMaxWidth().align(Alignment.TopStart)){
             Box(modifier = Modifier

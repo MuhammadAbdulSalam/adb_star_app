@@ -2,6 +2,7 @@ package com.adbsalam.star.ui.uiutil.pager
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,11 +16,11 @@ import com.google.accompanist.pager.HorizontalPagerIndicator
 
 @Composable
 @OptIn(ExperimentalPagerApi::class)
-fun AppPager(pagerModel: PagerModel){
+fun AppPager(pagerModel: PagerModel, isDark: Boolean = false){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(lightColorScheme().surface)
+            .background(if(isDark) darkColorScheme().surface else lightColorScheme().surface)
     ) {
         HorizontalPager(
             modifier = Modifier.weight(10f),

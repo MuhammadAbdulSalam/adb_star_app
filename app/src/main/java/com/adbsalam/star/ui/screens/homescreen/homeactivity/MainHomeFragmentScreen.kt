@@ -29,7 +29,7 @@ fun MainScreenView(){
            Scaffold(
                bottomBar = { HomeBottomNavBar(navController = navController) }
            ) {
-               Box(modifier = Modifier.padding(top = it.calculateTopPadding(), bottom = it.calculateBottomPadding())) {
+               Box(modifier = Modifier.padding( bottom = it.calculateBottomPadding())) {
                    NavigationGraph(navController = navController)
                }
            }

@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.W500
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -126,12 +127,8 @@ fun TabLayout(pagerModel: PagerModel){
 
     TabRow(
         containerColor = Transparent_Alpha4,
-        indicator = { tabPositions ->
-            TabRowDefaults.Indicator(
-                Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                color = Color.White
-            )
-        },
+        indicator = { },
+        divider = {},
         selectedTabIndex = selectedTabIndex ) {
         pagerModel.pagerList.forEachIndexed{ index, model ->
 
@@ -142,11 +139,23 @@ fun TabLayout(pagerModel: PagerModel){
                     }
                 }
             }) {
-                Text(
-                    modifier = Modifier.padding(all = 10.dp),
-                    text = model.title,
-                    color = Color.White
-                )
+                if(pagerModel.pagerList[selectedTabIndex].title == model.title){
+                    Text(
+                        modifier = Modifier.padding(all = 10.dp),
+                        text = model.title,
+                        color = Color.White,
+                        style = TextStyle(fontWeight = FontWeight.W500, fontSize = 18.sp)
+                    )
+                }
+                else
+                {
+                    Text(
+                        modifier = Modifier.padding(all = 10.dp),
+                        text = model.title,
+                        color = Color.White
+                    )
+                }
+
             }
 
         }
@@ -189,8 +198,9 @@ fun LoadMoviesListView(moviesList: List<PopularMoviesResponse.PopularMoviesList>
                     if(movieByGenre.movieList.isNotEmpty()){
                         Text(
                             modifier = Modifier
-                                .padding(all = 10.dp),
+                                .padding(horizontal = 10.dp),
                             text = movieByGenre.genreTitle,
+                            color = Color.White,
                             style = TextStyle(
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.W500

@@ -30,7 +30,7 @@ fun AppCompactPager(pagerState: PagerState, imagesList: List<PopularMoviesRespon
             .padding(top = 10.dp, bottom = 20.dp)
             .fillMaxWidth()
             .height(500.dp)
-            .background(lightColorScheme().surface)
+            .background(darkColorScheme().surface)
     ) {
         HorizontalPager(
             state = pagerState,
@@ -72,7 +72,7 @@ fun ImageItem(movies: String){
 @Composable
 fun MovieItem(movie: PopularMoviesResponse.PopularMoviesList){
     Card(modifier = Modifier
-        .padding(horizontal = 10.dp, vertical = 20.dp)
+        .padding(horizontal = 5.dp, vertical = 20.dp)
         .width(150.dp)
         .height(250.dp),
         colors = CardDefaults.cardColors(Color.Black)
