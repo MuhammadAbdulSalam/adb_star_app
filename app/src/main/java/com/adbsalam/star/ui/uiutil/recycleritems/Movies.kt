@@ -1,9 +1,10 @@
 package com.adbsalam.star.ui.uiutil.recycleritems
 
-import android.graphics.drawable.shapes.Shape
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -11,18 +12,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import coil.size.Scale
 import com.adbsalam.star.BuildConfig
-import com.adbsalam.star.R
 import com.adbsalam.star.api.data.popular.PopularMoviesResponse
 import com.google.accompanist.pager.*
+import com.google.android.material.animation.AnimationUtils.lerp
+import kotlin.math.absoluteValue
 
 
+@SuppressLint("RestrictedApi")
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun AppCompactPager(pagerState: PagerState, imagesList: List<PopularMoviesResponse.PopularMoviesList>){
@@ -37,9 +38,39 @@ fun AppCompactPager(pagerState: PagerState, imagesList: List<PopularMoviesRespon
             state = pagerState,
             verticalAlignment = Alignment.Top,
             count = imagesList.size,
-            contentPadding = PaddingValues(horizontal = 40.dp),
+
         ) { position ->
-            ImageItem(movies = imagesList[position].poster_path)
+
+            Column(modifier = Modifier.fillMaxSize()) {
+                Card(
+                    shape = RoundedCornerShape(0),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer {
+                            val pageOffset = calculateCurrentOffsetForPage(position).absoluteValue
+
+                            lerp(0.70f, 1f,  1f - pageOffset.coerceIn(0f, 1f)
+                            ).also { scale ->
+                                scaleX = scale
+                                scaleY = scale
+                            }
+
+                            // We animate the alpha, between 50% and 100%
+                            alpha = lerp(0.2f, 1f, 1f - pageOffset.coerceIn(0f, 1f))
+                        },
+                    elevation = CardDefaults.outlinedCardElevation(defaultElevation = 15.dp)
+                ) {
+                    Image(
+                        modifier = Modifier.fillMaxSize(),
+                        painter = rememberAsyncImagePainter("${BuildConfig.API_IMAGE_BASE_URL}${imagesList[position].poster_path}"),
+                        contentDescription = null,
+                        contentScale = ContentScale.FillBounds
+                    )
+                }
+
+            }
+
+           // ImageItem(movies = imagesList[position].poster_path)
         }
         HorizontalPagerIndicator(
             modifier = Modifier
@@ -55,7 +86,9 @@ fun AppCompactPager(pagerState: PagerState, imagesList: List<PopularMoviesRespon
 fun ImageItem(movies: String){
     Column(modifier = Modifier.fillMaxSize()) {
         Card(
-            modifier = Modifier.fillMaxSize().padding(horizontal = 5.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 5.dp),
             elevation = CardDefaults.outlinedCardElevation(defaultElevation = 15
                 .dp)
             ) {

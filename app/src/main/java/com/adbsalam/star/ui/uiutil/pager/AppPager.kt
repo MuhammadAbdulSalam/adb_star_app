@@ -2,13 +2,11 @@ package com.adbsalam.star.ui.uiutil.pager
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.adbsalam.star.ui.uiutil.uidatamodels.PagerModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -28,6 +26,7 @@ fun AppPager(pagerModel: PagerModel, isDark: Boolean = false){
             state = pagerModel.pagerState,
             verticalAlignment = Alignment.Top,
             count = pagerModel.pagerList.size,
+            userScrollEnabled = pagerModel.dragEnabled
             ) { position ->
            pagerModel.pagerList[position].composableScreen()
         }
