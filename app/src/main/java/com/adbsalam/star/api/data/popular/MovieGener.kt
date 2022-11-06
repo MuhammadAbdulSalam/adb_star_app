@@ -1,5 +1,7 @@
 package com.adbsalam.star.api.data.popular
 
+import com.adbsalam.star.ui.uiutil.recycleritems.MovieGenre
+
 
 enum class MovieGenres(val id: Int) {
     Action(28),

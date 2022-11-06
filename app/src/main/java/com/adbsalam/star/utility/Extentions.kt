@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.compose.runtime.Composable
+import com.adbsalam.star.api.data.popular.MovieByGenre
+import com.adbsalam.star.api.data.popular.MovieGenres
+import com.adbsalam.star.api.data.popular.PopularMoviesResponse
 
 inline fun <reified T : Any> Context.launchActivity(
     options: Bundle? = null,
@@ -40,4 +43,21 @@ fun CreateComposeList(list: List<@Composable()() -> Unit>): List<@Composable()()
 
 inline fun <reified T : Any> Any.cast(): T {
     return this as T
+}
+
+fun List<PopularMoviesResponse.PopularMoviesList>.filterByGenre(): ArrayList<MovieByGenre> {
+    val listByGenre = ArrayList<MovieByGenre>()
+
+    MovieGenres.values().forEach { genre ->
+        val currentGenre = MovieByGenre()
+        currentGenre.genreTitle = genre.name
+        this.forEach { movie ->
+            if (movie.genre_ids[0] == genre.id) {
+                currentGenre.movieList.add(movie)
+            }
+        }
+        listByGenre.add(currentGenre)
+    }
+
+    return listByGenre
 }

@@ -11,7 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.adbsalam.star.api.data.popular.PopularMoviesResponse
 import com.adbsalam.star.core.BaseViewState
 import com.adbsalam.star.ui.uiutil.FullScreenLoadingView
-import com.adbsalam.star.ui.uiutil.LoadMoviesListView
+import com.adbsalam.star.ui.uiutil.recycleritems.LoadMoviesListView
 import com.adbsalam.star.utility.cast
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
