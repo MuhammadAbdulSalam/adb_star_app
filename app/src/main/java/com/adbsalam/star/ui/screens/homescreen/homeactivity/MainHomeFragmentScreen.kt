@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.adbsalam.star.R
 import com.adbsalam.star.ui.screens.homescreen.rootnav.BottomNavItem
 import com.adbsalam.star.ui.screens.homescreen.rootnav.NavigationGraph
+import com.adbsalam.star.ui.theme.Adb_Salam_StarTheme_Fullscreen_Dark
 import com.adbsalam.star.ui.theme.Adb_salam_starTheme_fullscreen
 
 
@@ -24,7 +25,7 @@ import com.adbsalam.star.ui.theme.Adb_salam_starTheme_fullscreen
 @Composable
 fun MainScreenView(){
     val navController = rememberNavController()
-    Adb_salam_starTheme_fullscreen(isBottomBarTheme = true) {
+    Adb_Salam_StarTheme_Fullscreen_Dark(isBottomBarTheme = true) {
            Scaffold(
                bottomBar = { HomeBottomNavBar(navController = navController) }
            ) {
@@ -44,15 +45,17 @@ fun HomeBottomNavBar(navController: NavController) {
         BottomNavItem.Account,
     )
     NavigationBar(
-        contentColor = Color.Black
+        contentColor = Color.White,
+        containerColor = darkColorScheme().surface
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { item ->
             NavigationBarItem(
-                icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
+                icon = { Icon(painterResource(id = item.icon), contentDescription = item.title, tint = Color.White) },
                 alwaysShowLabel = false,
-                label = { Text(text = item.title, fontSize = 12.sp) },
+                colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Gray),
+                label = { Text(text = item.title, fontSize = 12.sp, color = Color.White) },
                 selected = currentRoute == item.screen_route,
                 onClick = {
                     navController.navigate(item.screen_route) {

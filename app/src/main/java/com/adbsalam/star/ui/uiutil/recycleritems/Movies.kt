@@ -29,12 +29,14 @@ fun AppCompactPager(pagerState: PagerState, imagesList: List<PopularMoviesRespon
         modifier = Modifier
             .padding(top = 10.dp, bottom = 20.dp)
             .fillMaxWidth()
-            .height(700.dp)
+            .height(500.dp)
             .background(lightColorScheme().surface)
     ) {
         HorizontalPager(
             state = pagerState,
             verticalAlignment = Alignment.Top,
+            count = imagesList.size,
+            contentPadding = PaddingValues(horizontal = 40.dp),
         ) { position ->
             ImageItem(movies = imagesList[position].poster_path)
         }
@@ -52,9 +54,9 @@ fun AppCompactPager(pagerState: PagerState, imagesList: List<PopularMoviesRespon
 fun ImageItem(movies: String){
     Column(modifier = Modifier.fillMaxSize()) {
         Card(
-            modifier = Modifier.fillMaxSize(),
-            shape = RectangleShape,
-            elevation = CardDefaults.outlinedCardElevation(defaultElevation = 10.dp)
+            modifier = Modifier.fillMaxSize().padding(horizontal = 5.dp),
+            elevation = CardDefaults.outlinedCardElevation(defaultElevation = 15
+                .dp)
             ) {
             Image(
                 modifier = Modifier.fillMaxSize(),

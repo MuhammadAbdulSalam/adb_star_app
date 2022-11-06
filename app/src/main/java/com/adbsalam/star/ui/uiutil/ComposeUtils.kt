@@ -2,6 +2,7 @@ package com.adbsalam.star.ui.uiutil
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -9,6 +10,7 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.*
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +32,7 @@ import com.adbsalam.star.api.data.popular.MovieByGenre
 import com.adbsalam.star.api.data.popular.MovieGenres
 import com.adbsalam.star.api.data.popular.PopularMoviesResponse
 import com.adbsalam.star.ui.theme.Purple40
+import com.adbsalam.star.ui.theme.Transparent_Alpha4
 import com.adbsalam.star.ui.uiutil.recycleritems.AppCompactPager
 import com.adbsalam.star.ui.uiutil.recycleritems.MovieItem
 import com.adbsalam.star.ui.uiutil.uidatamodels.*
@@ -55,7 +58,9 @@ fun AppButton(buttonModel: ButtonModel){
         modifier = Modifier.fillMaxWidth()
     ) {
         Button(
-            modifier = Modifier.align(Alignment.End).padding(vertical = 10.dp),
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(vertical = 10.dp),
             onClick = {buttonModel.onClickListener()}
         ) {
             Text(text = buttonModel.buttonText,)
@@ -69,7 +74,9 @@ fun AppImageView(imageModel: ImageModel){
     Image(
         painter = image,
         contentDescription = "",
-        modifier = Modifier.height(imageModel.height).width(imageModel.width)
+        modifier = Modifier
+            .height(imageModel.height)
+            .width(imageModel.width)
     )
 }
 
@@ -115,12 +122,21 @@ fun GetAppBarLogoImage(){
 @Composable
 fun TabLayout(pagerModel: PagerModel){
     val scope = rememberCoroutineScope()
+    var selectedTabIndex = pagerModel.pagerState.currentPage
 
-    TabRow(selectedTabIndex = pagerModel.pagerState.currentPage) {
+    TabRow(
+        containerColor = Transparent_Alpha4,
+        indicator = { tabPositions ->
+            TabRowDefaults.Indicator(
+                Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                color = Color.White
+            )
+        },
+        selectedTabIndex = selectedTabIndex ) {
         pagerModel.pagerList.forEachIndexed{ index, model ->
 
-            Tab(selected = pagerModel.pagerState.currentPage == index, onClick = {
-                if(pagerModel.pagerState.currentPage != index){
+            Tab(selected = selectedTabIndex == index, onClick = {
+                if(selectedTabIndex != index){
                     scope.launch {
                         pagerModel.pagerState.animateScrollToPage(index)
                     }
@@ -128,13 +144,15 @@ fun TabLayout(pagerModel: PagerModel){
             }) {
                 Text(
                     modifier = Modifier.padding(all = 10.dp),
-                    text = model.title
+                    text = model.title,
+                    color = Color.White
                 )
             }
 
         }
     }
 }
+
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -158,7 +176,7 @@ fun LoadMoviesListView(moviesList: List<PopularMoviesResponse.PopularMoviesList>
         listByGenre.add(currentGenre)
     }
 
-    val pagerState = rememberPagerState(pageCount = 3)
+    val pagerState = rememberPagerState(1)
 
     Column(Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxWidth()){
@@ -198,7 +216,9 @@ fun LoadMoviesListView(moviesList: List<PopularMoviesResponse.PopularMoviesList>
 @Composable
 fun TextViewWithEndIconComposable(textViewDataModel: TextViewModel) {
     textViewDataModel.stateText = remember { mutableStateOf(TextFieldValue()) }
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 10.dp)) {
         var textState = textViewDataModel.stateText
         textState?.value?.let {
             OutlinedTextField(

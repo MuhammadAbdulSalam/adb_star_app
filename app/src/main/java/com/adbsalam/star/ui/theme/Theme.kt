@@ -108,3 +108,42 @@ fun Adb_salam_starTheme_fullscreen(
         content = content
     )
 }
+
+@Composable
+fun Adb_Salam_StarTheme_Fullscreen_Dark(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    // Dynamic color is available on Android 12+
+    dynamicColor: Boolean = true,
+    isBottomBarTheme: Boolean = false,
+    content: @Composable () -> Unit,
+) {
+    val systemUiController = rememberSystemUiController()
+
+    val colorScheme = when {
+//        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+//            val context = LocalContext.current
+//            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+//        }
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            if(darkTheme){
+                systemUiController.setSystemBarsColor(
+                    color = Color.Transparent
+                )
+            }else{
+                systemUiController.setNavigationBarColor(color = if(isBottomBarTheme) Color.Transparent else darkColorScheme().surface)
+                systemUiController.setStatusBarColor(color = darkColorScheme().surface)
+            }
+        }
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
+}

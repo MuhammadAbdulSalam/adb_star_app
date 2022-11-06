@@ -6,6 +6,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.adbsalam.star.ui.uiutil.uidatamodels.PagerModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -24,7 +25,7 @@ fun AppPager(pagerModel: PagerModel){
             modifier = Modifier.weight(10f),
             state = pagerModel.pagerState,
             verticalAlignment = Alignment.Top,
-            dragEnabled = pagerModel.dragEnabled
+            count = pagerModel.pagerList.size,
             ) { position ->
            pagerModel.pagerList[position].composableScreen()
         }

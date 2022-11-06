@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 fun OnBoardingScreen(viewModel: OnBoardingViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val pagerState = rememberPagerState(3)
+    val pagerState = rememberPagerState()
     val enable = pagerState.currentPage != 0
 
     BackHandler(enabled = enable) {
