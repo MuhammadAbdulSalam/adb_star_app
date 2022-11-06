@@ -7,6 +7,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.adbsalam.star.ui.uiutil.uidatamodels.PagerModel
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -20,7 +21,7 @@ fun AppPager(pagerModel: PagerModel, isDark: Boolean = false){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(if(isDark) darkColorScheme().surface else lightColorScheme().surface)
+            .background(if(isDark) Color.Black else lightColorScheme().surface)
     ) {
         HorizontalPager(
             modifier = Modifier.weight(10f),

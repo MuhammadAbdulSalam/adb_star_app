@@ -4,6 +4,7 @@ import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,8 +30,8 @@ fun AppCompactPager(pagerState: PagerState, imagesList: List<PopularMoviesRespon
         modifier = Modifier
             .padding(top = 10.dp, bottom = 20.dp)
             .fillMaxWidth()
-            .height(500.dp)
-            .background(darkColorScheme().surface)
+            .height(700.dp)
+            .background(Color.Black)
     ) {
         HorizontalPager(
             state = pagerState,
@@ -73,41 +74,41 @@ fun ImageItem(movies: String){
 fun MovieItem(movie: PopularMoviesResponse.PopularMoviesList){
     Card(modifier = Modifier
         .padding(horizontal = 5.dp, vertical = 20.dp)
-        .width(150.dp)
+        .width(160.dp)
         .height(250.dp),
+        shape = RoundedCornerShape(4.dp),
         colors = CardDefaults.cardColors(Color.Black)
     ) {
         Column(){
             Image(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(4f),
+                    .fillMaxSize() ,
                 painter = rememberAsyncImagePainter("${BuildConfig.API_IMAGE_BASE_URL}${movie.poster_path}"),
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds
             )
-            Row(modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 10.dp)
-                .weight(1f)
-            ) {
-                Column(modifier = Modifier.fillMaxHeight(),
-                    horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center) {
-                    Icon(
-                        painterResource(id = R.drawable.ic_baseline_data_saver_on_24),
-                        contentDescription ="",
-                        tint = Color.White
-                    )
-                }
-                Column(modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Center) {
-                    Icon(
-                        painterResource(id = R.drawable.ic_outline_manage_search_24),
-                        contentDescription ="",
-                        tint = Color.White
-                    )
-                }
-            }
+//            Row(modifier = Modifier
+//                .fillMaxSize()
+//                .padding(horizontal = 10.dp)
+//                .weight(1f)
+//            ) {
+//                Column(modifier = Modifier.fillMaxHeight(),
+//                    horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center) {
+//                    Icon(
+//                        painterResource(id = R.drawable.ic_baseline_data_saver_on_24),
+//                        contentDescription ="",
+//                        tint = Color.White
+//                    )
+//                }
+//                Column(modifier = Modifier.fillMaxSize(),
+//                    horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Center) {
+//                    Icon(
+//                        painterResource(id = R.drawable.ic_outline_manage_search_24),
+//                        contentDescription ="",
+//                        tint = Color.White
+//                    )
+//                }
+//            }
         }
 
     }

@@ -1,11 +1,13 @@
 package com.adbsalam.star.ui.uiutil
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.adbsalam.star.ui.uiutil.uidatamodels.ButtonModel
 import com.adbsalam.star.ui.uiutil.uidatamodels.TextModel
@@ -14,7 +16,7 @@ import com.adbsalam.star.ui.uiutil.uidatamodels.TextViewModel
 @Composable
 fun FullScreenLoadingView() {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(Color.Transparent),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

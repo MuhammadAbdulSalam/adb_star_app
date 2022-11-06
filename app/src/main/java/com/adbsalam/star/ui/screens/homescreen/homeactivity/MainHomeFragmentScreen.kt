@@ -19,6 +19,7 @@ import com.adbsalam.star.ui.screens.homescreen.rootnav.BottomNavItem
 import com.adbsalam.star.ui.screens.homescreen.rootnav.NavigationGraph
 import com.adbsalam.star.ui.theme.Adb_Salam_StarTheme_Fullscreen_Dark
 import com.adbsalam.star.ui.theme.Adb_salam_starTheme_fullscreen
+import com.adbsalam.star.ui.theme.Grey_Dark
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,7 +47,7 @@ fun HomeBottomNavBar(navController: NavController) {
     )
     NavigationBar(
         contentColor = Color.White,
-        containerColor = darkColorScheme().surface
+        containerColor = Grey_Dark
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
