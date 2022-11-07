@@ -2,15 +2,11 @@ package com.adbsalam.star.ui.uiutil
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.*
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,27 +19,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.FontWeight.Companion.W500
-import androidx.compose.ui.text.font.FontWeight.Companion.W600
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adbsalam.star.R
-import com.adbsalam.star.api.data.popular.MovieByGenre
-import com.adbsalam.star.api.data.popular.MovieGenres
-import com.adbsalam.star.api.data.popular.PopularMoviesResponse
 import com.adbsalam.star.ui.theme.Purple40
-import com.adbsalam.star.ui.theme.Transparent_Alpha4
-import com.adbsalam.star.ui.uiutil.recycleritems.AppCompactPager
-import com.adbsalam.star.ui.uiutil.recycleritems.MovieDescription
-import com.adbsalam.star.ui.uiutil.recycleritems.MovieGenre
-import com.adbsalam.star.ui.uiutil.recycleritems.MovieItem
+import com.adbsalam.star.ui.theme.Purple80
 import com.adbsalam.star.ui.uiutil.uidatamodels.*
-import com.adbsalam.star.utility.filterByGenre
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
 
@@ -64,7 +48,7 @@ fun AppButton(buttonModel: ButtonModel) {
     ) {
         Button(
             modifier = Modifier
-                .align(if(buttonModel.alignment == Alignment.Center) Alignment.CenterHorizontally else Alignment.End)
+                .align(if (buttonModel.alignment == Alignment.Center) Alignment.CenterHorizontally else Alignment.End)
                 .padding(vertical = 10.dp),
             onClick = { buttonModel.onClickListener() }
         ) {
@@ -129,40 +113,45 @@ fun TabLayout(pagerModel: PagerModel) {
     val scope = rememberCoroutineScope()
     var selectedTabIndex = pagerModel.pagerState.currentPage
 
-    TabRow(
-        containerColor = Transparent_Alpha4,
-        indicator = { },
-        divider = {},
-        selectedTabIndex = selectedTabIndex
-    ) {
-        pagerModel.pagerList.forEachIndexed { index, model ->
+    Row() {
+        Spacer(modifier = Modifier.weight(3f))
+        TabRow(
+            modifier = Modifier.weight(2f),
+            containerColor = Color.Transparent,
+            indicator = { },
+            divider = {},
+            selectedTabIndex = selectedTabIndex
+        ) {
+            pagerModel.pagerList.forEachIndexed { index, model ->
 
-            Tab(selected = selectedTabIndex == index, onClick = {
-                if (selectedTabIndex != index) {
-                    scope.launch {
-                        pagerModel.pagerState.animateScrollToPage(index)
+                Tab(selected = selectedTabIndex == index, onClick = {
+                    if (selectedTabIndex != index) {
+                        scope.launch {
+                            pagerModel.pagerState.animateScrollToPage(index)
+                        }
                     }
-                }
-            }) {
-                if (pagerModel.pagerList[selectedTabIndex].title == model.title) {
-                    Text(
-                        modifier = Modifier.padding(all = 10.dp),
-                        text = model.title,
-                        color = Color.White,
-                        style = TextStyle(fontWeight = FontWeight.W500, fontSize = 18.sp)
-                    )
-                } else {
-                    Text(
-                        modifier = Modifier.padding(all = 10.dp),
-                        text = model.title,
-                        color = Color.White
-                    )
+                }) {
+                    if (pagerModel.pagerList[selectedTabIndex].title == model.title) {
+                        Text(
+                            modifier = Modifier.padding(all = 10.dp),
+                            text = model.title,
+                            color = Color.White,
+                            style = TextStyle(fontWeight = FontWeight.W600, fontSize = 20.sp)
+                        )
+                    } else {
+                        Text(
+                            modifier = Modifier.padding(all = 10.dp),
+                            text = model.title,
+                            color = Color.White
+                        )
+                    }
+
                 }
 
             }
-
         }
     }
+
 }
 
 

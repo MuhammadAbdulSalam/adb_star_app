@@ -1,22 +1,28 @@
 package com.adbsalam.star.ui.uiutil.recycleritems
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,12 +30,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.adbsalam.star.BuildConfig
+import com.adbsalam.star.R
 import com.adbsalam.star.api.data.popular.MovieGenres
 import com.adbsalam.star.api.data.popular.PopularMoviesResponse
-import com.adbsalam.star.ui.theme.Transparent_Alpha3
+import com.adbsalam.star.ui.theme.Purple40
 import com.adbsalam.star.ui.theme.Transparent_Alpha4
 import com.adbsalam.star.ui.uiutil.AppButton
+import com.adbsalam.star.ui.uiutil.ScrollState
+import com.adbsalam.star.ui.uiutil.TabLayout
 import com.adbsalam.star.ui.uiutil.uidatamodels.ButtonModel
+import com.adbsalam.star.ui.uiutil.uidatamodels.PagerModel
 import com.adbsalam.star.utility.filterByGenre
 import com.google.accompanist.pager.*
 import com.google.android.material.animation.AnimationUtils.lerp
@@ -187,28 +197,6 @@ fun MovieItem(movie: PopularMoviesResponse.PopularMoviesList){
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds
             )
-//            Row(modifier = Modifier
-//                .fillMaxSize()
-//                .padding(horizontal = 10.dp)
-//                .weight(1f)
-//            ) {
-//                Column(modifier = Modifier.fillMaxHeight(),
-//                    horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center) {
-//                    Icon(
-//                        painterResource(id = R.drawable.ic_baseline_data_saver_on_24),
-//                        contentDescription ="",
-//                        tint = Color.White
-//                    )
-//                }
-//                Column(modifier = Modifier.fillMaxSize(),
-//                    horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Center) {
-//                    Icon(
-//                        painterResource(id = R.drawable.ic_outline_manage_search_24),
-//                        contentDescription ="",
-//                        tint = Color.White
-//                    )
-//                }
-//            }
         }
     }
 }
@@ -225,6 +213,83 @@ fun MovieImageTailingView(text: String){
         AppButton(buttonModel = ButtonModel("See More", alignment = Alignment.Center))
     }
 }
+
+@Composable
+fun MoviesTopTabbedBar(modifier: Modifier, pagerModel: PagerModel, scrollDirection: MutableState<ScrollState>){
+    LazyColumn(modifier = modifier){
+        item {
+            AnimatedVisibility(
+                modifier= Modifier.height(130.dp),
+                visible =  scrollDirection.value == ScrollState.SCROLL_DOWN || scrollDirection.value == ScrollState.NO_SCROLL,
+                enter =  slideInVertically() + fadeIn(),
+                exit =  slideOutVertically() + fadeOut(),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Transparent_Alpha4),
+                    verticalArrangement = Arrangement.Bottom
+                ) {
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .height(40.dp)
+                    ){
+                        Image(painter = painterResource(id = R.drawable.ic_adb_star), contentDescription = "" , modifier = Modifier.size(100.dp, 40.dp))
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.Bottom) {
+                                Icon(Icons.Default.Person, contentDescription = "",
+                                    modifier = Modifier.size(30.dp),
+                                    tint = Color.White
+                                )
+                            }
+
+                    }
+                    TabLayout(pagerModel)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun FloatingBottomBar(modifier: Modifier, scrollState: MutableState<ScrollState>){
+    AnimatedVisibility(
+        modifier = modifier,
+        visible = scrollState.value == ScrollState.SCROLL_UP,
+        enter = slideInVertically(initialOffsetY = { 300 }) + fadeIn(),
+        exit = slideOutVertically(targetOffsetY = {300}) + fadeOut()
+    ) {
+        Card(
+            modifier = modifier.padding(bottom = 20.dp),
+            elevation = CardDefaults.elevatedCardElevation(defaultElevation = 20.dp),
+            shape = RoundedCornerShape(70.dp),
+            colors = CardDefaults.cardColors(containerColor = Purple40),
+        ) {
+            Row(modifier = Modifier.padding(horizontal = 30.dp, vertical = 5.dp),  horizontalArrangement = Arrangement.SpaceEvenly) {
+                IconButton(modifier = Modifier.width(60.dp), onClick = {  }) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(Icons.Default.Refresh, contentDescription = "", modifier = Modifier.size(20.dp))
+                        Text(text = "Refresh", style = TextStyle(fontSize = 12.sp))
+                    }
+                }
+                IconButton(modifier = Modifier.width(60.dp), onClick = {  }) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(Icons.Default.KeyboardArrowUp, contentDescription = "", modifier = Modifier.size(20.dp))
+                        Text(text = "Top", style = TextStyle(fontSize = 12.sp))
+                    }
+                }
+                IconButton(modifier = Modifier.width(60.dp), onClick = {  }) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(Icons.Default.KeyboardArrowDown, contentDescription = "", modifier = Modifier.size(20.dp))
+                        Text(text = "End", style = TextStyle(fontSize = 12.sp))
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 @Preview
 @Composable
