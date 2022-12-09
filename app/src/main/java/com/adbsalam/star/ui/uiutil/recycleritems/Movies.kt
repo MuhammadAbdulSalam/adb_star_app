@@ -9,16 +9,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -34,8 +30,6 @@ import com.adbsalam.star.BuildConfig
 import com.adbsalam.star.R
 import com.adbsalam.star.api.data.popular.MovieGenres
 import com.adbsalam.star.api.data.popular.PopularMoviesResponse
-import com.adbsalam.star.ui.theme.Purple40
-import com.adbsalam.star.ui.theme.Transparent_Alpha4
 import com.adbsalam.star.ui.uiutil.AppButton
 import com.adbsalam.star.ui.uiutil.ScrollState
 import com.adbsalam.star.ui.uiutil.TabLayout
@@ -74,13 +68,11 @@ fun AppCompactPager(pagerState: PagerState, imagesList: List<PopularMoviesRespon
                             val pageOffset = calculateCurrentOffsetForPage(position).absoluteValue
 
                             lerp(
-                                0.60f, 1f, 1f - pageOffset.coerceIn(0f, 1f)
-                            ).also { scale ->
+                                0.60f, 1f, 1f - pageOffset.coerceIn(0f, 1f)).also { scale ->
                                 scaleX = scale
                                 scaleY = scale
                             }
 
-                            // We animate the alpha, between 50% and 100%
                             alpha = lerp(0.2f, 1f, 1f - pageOffset.coerceIn(0f, 1f))
                         },
                     elevation = CardDefaults.outlinedCardElevation(defaultElevation = 15.dp)
@@ -94,16 +86,7 @@ fun AppCompactPager(pagerState: PagerState, imagesList: List<PopularMoviesRespon
                 }
 
             }
-
-           // ImageItem(movies = imagesList[position].poster_path)
         }
-//        HorizontalPagerIndicator(
-//            modifier = Modifier
-//                .align(alignment = Alignment.BottomCenter)
-//                .padding(all = 20.dp),
-//            pagerState = pagerState,
-//            activeColor = Color.White
-//        )
     }
 }
 
@@ -253,44 +236,6 @@ fun MoviesTopTabbedBar(modifier: Modifier, pagerModel: PagerModel, scrollDirecti
 
                     }
                     TabLayout(pagerModel)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun FloatingBottomBar(modifier: Modifier, scrollState: MutableState<ScrollState>){
-    AnimatedVisibility(
-        modifier = modifier,
-        visible = scrollState.value == ScrollState.SCROLL_UP,
-        enter = slideInVertically(initialOffsetY = { 300 }) + fadeIn(),
-        exit = slideOutVertically(targetOffsetY = {300}) + fadeOut()
-    ) {
-        Card(
-            modifier = modifier.padding(bottom = 20.dp),
-            elevation = CardDefaults.elevatedCardElevation(defaultElevation = 20.dp),
-            shape = RoundedCornerShape(70.dp),
-            colors = CardDefaults.cardColors(containerColor = Purple40),
-        ) {
-            Row(modifier = Modifier.padding(horizontal = 30.dp, vertical = 5.dp),  horizontalArrangement = Arrangement.SpaceEvenly) {
-                IconButton(modifier = Modifier.width(60.dp), onClick = {  }) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Default.Refresh, contentDescription = "", modifier = Modifier.size(20.dp))
-                        Text(text = "Refresh", style = TextStyle(fontSize = 12.sp))
-                    }
-                }
-                IconButton(modifier = Modifier.width(60.dp), onClick = {  }) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Default.KeyboardArrowUp, contentDescription = "", modifier = Modifier.size(20.dp))
-                        Text(text = "Top", style = TextStyle(fontSize = 12.sp))
-                    }
-                }
-                IconButton(modifier = Modifier.width(60.dp), onClick = {  }) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Default.KeyboardArrowDown, contentDescription = "", modifier = Modifier.size(20.dp))
-                        Text(text = "End", style = TextStyle(fontSize = 12.sp))
-                    }
                 }
             }
         }

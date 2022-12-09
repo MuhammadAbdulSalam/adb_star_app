@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.adbsalam.star.R
 import com.adbsalam.star.ui.screens.homescreen.homefrags.account.AccountScreen
-import com.adbsalam.star.ui.screens.homescreen.homefrags.home.MainHomeScreen
+import com.adbsalam.star.ui.screens.homescreen.homefrags.home.MainHomeScreenManipulator
 import com.adbsalam.star.ui.screens.homescreen.homefrags.saved.SavedScreen
 import com.adbsalam.star.ui.screens.homescreen.homefrags.search.SearchScreen
 
@@ -14,7 +14,7 @@ import com.adbsalam.star.ui.screens.homescreen.homefrags.search.SearchScreen
 fun NavigationGraph(navController: NavHostController) {
     NavHost(navController, startDestination = BottomNavItem.Home.screen_route) {
         composable(BottomNavItem.Home.screen_route) {
-            MainHomeScreen()
+            MainHomeScreenManipulator()
         }
         composable(BottomNavItem.Search.screen_route) {
             SearchScreen()

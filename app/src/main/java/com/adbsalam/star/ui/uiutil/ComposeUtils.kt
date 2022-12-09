@@ -2,25 +2,29 @@ package com.adbsalam.star.ui.uiutil
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Green
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adbsalam.star.R
@@ -154,6 +158,45 @@ fun TabLayout(pagerModel: PagerModel) {
 
 }
 
+@Composable
+fun FloatingBottomBar(
+    modifier: Modifier,
+    scrollState: MutableState<ScrollState>,
+    iconsList: List<AppClickableIcons>
+) {
+    AnimatedVisibility(
+        modifier = modifier,
+        visible = scrollState.value == ScrollState.SCROLL_UP,
+        enter = slideInVertically(initialOffsetY = { 300 }) + fadeIn(),
+        exit = slideOutVertically(targetOffsetY = { 300 }) + fadeOut()
+    ) {
+        Card(
+            modifier = modifier.padding(bottom = 20.dp),
+            elevation = CardDefaults.elevatedCardElevation(defaultElevation = 20.dp),
+            shape = RoundedCornerShape(70.dp),
+            colors = CardDefaults.cardColors(containerColor = Purple40),
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = 30.dp, vertical = 5.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                iconsList.forEach { AppSmallIconButton(it.icon, it.onClick) }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun AppSmallIconButton(icon: ImageVector, onClick: () -> Unit) {
+    IconButton(modifier = Modifier.width(60.dp), onClick = { onClick() }) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Icon(icon, contentDescription = "", modifier = Modifier.size(20.dp))
+            Text(text = "End", style = TextStyle(fontSize = 12.sp))
+        }
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -205,5 +248,52 @@ fun TextViewWithEndIconComposable(textViewDataModel: TextViewModel) {
             }
         }
     }
-
 }
+
+@Preview
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppSearchTextView() {
+    Column(Modifier.fillMaxWidth()) {
+        val textState = remember { mutableStateOf(TextFieldValue()) }
+        val animatedVisibility = false
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth(),
+            value = textState.value,
+            singleLine = true,
+            onValueChange = { textState.value = it },
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = darkColorScheme().surface,
+                cursorColor = Color.White,
+                textColor = Color.White,
+                focusedIndicatorColor = Color.White
+            ),
+            trailingIcon = {
+                Icon(
+                    Icons.Default.Search,
+                    contentDescription = "",
+                    tint = Color.White
+                )
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Search
+            )
+        )
+
+        AnimatedVisibility(visible = textState.value.text.isNotEmpty()) {
+           Column(Modifier.fillMaxWidth()) {
+               List(10){
+                   Text(
+                       modifier = Modifier.padding(all = 10.dp),
+                       text = "Suggestion",
+                       style = TextStyle(color = Color.White),
+                       fontSize = 18.sp,
+                       fontWeight = FontWeight.W600
+                   )
+               }
+           }
+        }
+    }
+}
+

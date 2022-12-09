@@ -61,3 +61,31 @@ fun List<PopularMoviesResponse.PopularMoviesList>.filterByGenre(): ArrayList<Mov
 
     return listByGenre
 }
+
+@Composable
+fun UIComponent(comp : @Composable () -> Unit){
+    comp()
+}
+
+@Retention(AnnotationRetention.SOURCE)
+@Target(
+    // function declarations
+    // @Composable fun Foo() { ... }
+    // lambda expressions
+    // val foo = @Composable { ... }
+    AnnotationTarget.FUNCTION,
+
+    // type declarations
+    // var foo: @Composable () -> Unit = { ... }
+    // parameter types
+    // foo: @Composable () -> Unit
+    AnnotationTarget.TYPE,
+
+    // composable types inside of type signatures
+    // foo: (@Composable () -> Unit) -> Unit
+    AnnotationTarget.TYPE_PARAMETER,
+
+    AnnotationTarget.EXPRESSION
+)
+annotation class MainUiForComposable()
+
